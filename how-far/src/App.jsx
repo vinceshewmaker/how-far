@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useSync } from './hooks/useSync'
 import { useHealth } from './hooks/useHealth'
 import HomeTab from './tabs/HomeTab'
@@ -15,14 +15,6 @@ export default function App() {
 
   const health = useHealth()
   const sync = useSync(joined ? groupCode : null, joined ? userName : null)
-
-  useEffect(() => {
-    if (joined) {
-      health.syncSteps().then((steps) => {
-        if (steps !== null) sync.pushSteps(steps)
-      })
-    }
-  }, [joined])
 
   function handleJoin(e) {
     e.preventDefault()
@@ -49,7 +41,14 @@ export default function App() {
             <label className="field-label">Your name</label>
             <input name="name" className="field-input" placeholder="e.g. Jamie" autoComplete="off" required />
             <label className="field-label">Group code</label>
-            <input name="code" className="field-input" placeholder="e.g. SUNRISECREW" autoComplete="off" style={{ textTransform: 'uppercase' }} required />
+            <input
+              name="code"
+              className="field-input"
+              placeholder="e.g. SUNRISECREW"
+              autoComplete="off"
+              onChange={(e) => e.target.value = e.target.value.toUpperCase()}
+              required
+            />
             <p className="join-hint">Anyone with the same code sees the same live feed.</p>
             <button type="submit" className="btn-primary">Join group →</button>
           </form>
