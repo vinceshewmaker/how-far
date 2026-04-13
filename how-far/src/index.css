@@ -105,3 +105,19 @@ input[type="range"] { -webkit-appearance: none; appearance: none; }
 .bar-reached { background: var(--sage); }
 .bar-label { font-size: 10px; color: var(--text-muted); margin-top: 6px; }
 .bar-val { font-size: 10px; color: var(--text-muted); }
+.btn-leave {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: transparent;
+  transition: color 0.15s, border-color 0.15s;
+}
+.btn-leave:active { color: #c0392b; border-color: #c0392b; }
+
+.btn-quick-done {
+  background: #5aa872 !important;
+  color: #fff !important;
+}
