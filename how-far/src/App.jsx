@@ -28,6 +28,15 @@ export default function App() {
     setJoined(true)
   }
 
+  function handleLeave() {
+    localStorage.removeItem('hf_name')
+    localStorage.removeItem('hf_group')
+    setUserName('')
+    setGroupCode('')
+    setJoined(false)
+    setTab('home')
+  }
+
   if (!joined) {
     return (
       <div className="join-screen">
@@ -39,7 +48,13 @@ export default function App() {
           <p className="join-subtitle">Group step tracker. No accounts. No friction.</p>
           <form onSubmit={handleJoin} className="join-form">
             <label className="field-label">Your name</label>
-            <input name="name" className="field-input" placeholder="e.g. Jamie" autoComplete="off" required />
+            <input
+              name="name"
+              className="field-input"
+              placeholder="e.g. Jamie"
+              autoComplete="off"
+              required
+            />
             <label className="field-label">Group code</label>
             <input
               name="code"
@@ -60,9 +75,21 @@ export default function App() {
   return (
     <div className="app-shell">
       <div className="tab-content">
-        {tab === 'home' && <HomeTab userName={userName} groupCode={groupCode} health={health} sync={sync} />}
-        {tab === 'sync' && <SyncTab health={health} sync={sync} userName={userName} groupCode={groupCode} />}
-        {tab === 'progress' && <ProgressTab sync={sync} userName={userName} />}
+        {tab === 'home' && (
+          <HomeTab
+            userName={userName}
+            groupCode={groupCode}
+            health={health}
+            sync={sync}
+            onLeave={handleLeave}
+          />
+        )}
+        {tab === 'sync' && (
+          <SyncTab health={health} sync={sync} userName={userName} groupCode={groupCode} />
+        )}
+        {tab === 'progress' && (
+          <ProgressTab sync={sync} userName={userName} />
+        )}
       </div>
       <nav className="tab-bar">
         <button className={`tab-btn ${tab === 'home' ? 'active' : ''}`} onClick={() => setTab('home')}>
